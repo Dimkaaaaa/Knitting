@@ -1,4 +1,4 @@
-package com.example.knittibg
+package com.example.knitting
 
 import org.junit.Test
 

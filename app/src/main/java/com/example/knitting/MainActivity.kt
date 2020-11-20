@@ -1,4 +1,4 @@
-package com.example.knittibg
+package com.example.knitting
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
