@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Knitting</string>
+    <string name="nameButtonCounter">Счётчик</string>
+    <string name="nameButtonTraining">Обучение</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_counter_nav_host">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
