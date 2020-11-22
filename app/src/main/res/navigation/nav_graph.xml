@@ -8,5 +8,14 @@
         android:id="@+id/mainMenuFragment"
         android:name="com.example.knitting.MainMenuFragment"
         android:label="MainMenuFragment"
-        tools:layout="@layout/main_menu_fragment"/>
+        tools:layout="@layout/main_menu_fragment">
+        <action
+            android:id="@+id/action_mainMenuFragment_to_counterProjectsFragment"
+            app:destination="@id/counterProjectsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/counterProjectsFragment"
+        android:name="com.example.knitting.CounterProjectsFragment"
+        android:label="counter_projects_fragment"
+        tools:layout="@layout/counter_projects_fragment" />
 </navigation>
