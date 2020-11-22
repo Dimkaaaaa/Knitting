@@ -9,11 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Knittibg">
-        <activity
-            android:name=".CounterNavHost"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_counter_nav_host"
-            android:theme="@style/Theme.Knittibg.Fullscreen"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

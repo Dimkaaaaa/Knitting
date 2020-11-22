@@ -3,11 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/counterNavHost">
-
-    <activity
-        android:id="@+id/counterNavHost"
-        android:name="com.example.knitting.CounterNavHost"
-        android:label="activity_counter_nav_host"
-        tools:layout="@layout/activity_counter_nav_host" />
+    app:startDestination="@id/mainMenuFragment">
+    <fragment
+        android:id="@+id/mainMenuFragment"
+        android:name="com.example.knitting.MainMenuFragment"
+        android:label="MainMenuFragment"
+        tools:layout="@layout/main_menu_fragment">
+        <action
+            android:id="@+id/action_mainMenuFragment_to_counterProjectsFragment"
+            app:destination="@id/counterProjectsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/counterProjectsFragment"
+        android:name="com.example.knitting.CounterProjectsFragment"
+        android:label="counter_projects_fragment"
+        tools:layout="@layout/counter_projects_fragment" />
 </navigation>
