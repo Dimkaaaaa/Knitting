@@ -5,27 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.knitting.databinding.SettingsFragmentBinding
 
 class SettingsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = SettingsFragment()
-    }
-
     private lateinit var viewModel: SettingsViewModel
+    lateinit var binding: SettingsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.settings_fragment, container, false)
-    }
+    ): View {
+        binding = SettingsFragmentBinding.inflate(inflater, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding.buttonSave.setOnClickListener {
+            this.findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToCounterProjectsFragment())
+        }
+        return binding.root
     }
 
 }
