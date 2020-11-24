@@ -7,24 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
-class ProjectSettingsFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ProjectSettingsFragment()
+        fun newInstance() = SettingsFragment()
     }
 
-    private lateinit var viewModel: ProjectSettingsViewModel
+    private lateinit var viewModel: SettingsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.project_settings_fragment, container, false)
+        return inflater.inflate(R.layout.settings_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProjectSettingsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
