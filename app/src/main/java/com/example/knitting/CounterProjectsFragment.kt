@@ -23,6 +23,13 @@ class CounterProjectsFragment : Fragment() {
         binding.buttonNewProject.setOnClickListener {
             this.findNavController().navigate(CounterProjectsFragmentDirections.actionCounterProjectsFragmentToSettingsFragment())
         }
+
+        val myData = MyList().myList
+        val adapter = CounterAdapter()
+        binding.projectsList.adapter = adapter
+
+        adapter.data = myData
+
         return binding.root
     }
 
