@@ -1,13 +1,12 @@
 package com.example.knitting
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knitting.database.Counter
+import com.example.knitting.databinding.CounterItemBinding
 
 
 class CounterAdapter : ListAdapter<Counter, MyHolder>(CounterDiffCallback()) {
@@ -25,20 +24,18 @@ class CounterAdapter : ListAdapter<Counter, MyHolder>(CounterDiffCallback()) {
 }
 
 
-class MyHolder private constructor(val itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val counterProjectName: TextView = itemView.findViewById(R.id.textViewProjectName)
-    val counterProjectTime: TextView = itemView.findViewById(R.id.textViewProjectTime)
+class MyHolder private constructor(val binding: CounterItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Counter) {
-        counterProjectName.text = item.counterName
-        counterProjectTime.text = item.time.toString()
+        binding.textViewProjectName.text = item.counterName
+        binding.textViewProjectTime.text = item.time.toString()
     }
 
     companion object {
         fun from(parent: ViewGroup): MyHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val view = inflater.inflate(R.layout.counter_item, parent, false)
-            return MyHolder(view)
+            val binding = CounterItemBinding.inflate(inflater, parent, false)
+            return MyHolder(binding)
         }
     }
 }

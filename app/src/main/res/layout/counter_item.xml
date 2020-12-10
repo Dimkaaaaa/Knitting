@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="Counter"
+            type="com.example.knitting.database.Counter" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="12dp">
 
         <TextView
             android:id="@+id/textViewProjectName"
@@ -41,3 +48,4 @@
             app:layout_constraintTop_toTopOf="@+id/textViewProjectName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
