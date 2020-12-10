@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SettingsFragment">
+    tools:context=".settings.SettingsFragment">
+
+    <data>
+
+        <variable
+            name="settingsViewModel"
+            type="com.example.knitting.settings.SettingsViewModel" />
+    </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,6 +27,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:text="Сохранить"
+                android:onClick="@{() -> settingsViewModel.onSaveNewCounter()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,6 +38,7 @@
                 android:layout_marginTop="12dp"
                 android:hint="Добавьте название проекта..."
                 android:inputType="textPersonName"
+                android:text="@={settingsViewModel.projectNameText}"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -57,36 +64,12 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:inputType="number"
+                android:hint="1"
                 android:paddingStart="12dp"
-                android:text="1"
+                android:text="@={settingsViewModel.step}"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextNameProject" />
-
-            <TextView
-                android:id="@+id/textViewLimit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="12dp"
-                android:text="Лимит счёта"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@+id/editTextNumberLimit"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editTextNumberLimit" />
-
-            <EditText
-                android:id="@+id/editTextNumberLimit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="24dp"
-                android:inputType="number"
-                android:paddingStart="12dp"
-                android:text="0"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextStep" />
 
             <TextView
                 android:id="@+id/textViewNote"
@@ -97,7 +80,7 @@
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumberLimit" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextStep" />
 
             <MultiAutoCompleteTextView
                 android:id="@+id/multiAutoCompleteTextView2"
@@ -107,6 +90,7 @@
                 android:hint="Здесь можно сделать заметку..."
                 android:paddingStart="12dp"
                 android:paddingEnd="24dp"
+                android:text="@={settingsViewModel.note}"
                 android:textAlignment="viewStart"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -115,4 +99,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-</FrameLayout>
+</layout>

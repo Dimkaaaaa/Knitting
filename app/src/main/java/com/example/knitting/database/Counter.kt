@@ -7,20 +7,20 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "counter_table")
 data class Counter(
         @PrimaryKey(autoGenerate = true)
-        val counterID: Int,
+        var counterID: Int = 0,
 
         @ColumnInfo(name = "name")
-        val counterName: String = " ",
+        var counterName: String = " ",
 
         @ColumnInfo(name = "count_number")
-        val countNumber: Long = 0L,
+        var countNumber: Long = 0L,
 
         @ColumnInfo(name = "time")
-        val time: Long = 0L,
+        var time: Long = 0L,
 
         @ColumnInfo(name = "step")
-        val step: Int = 1,
+        var step: Int = 1,
 
         @ColumnInfo(name = "note")
-        val note: String = " "
+        var note: String = " "
 )
