@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/counterProjectsFragment"
-        android:name="com.example.knitting.CounterProjectsFragment"
+        android:name="com.example.knitting.counterProject.CounterProjectsFragment"
         android:label="counter_projects_fragment"
         tools:layout="@layout/counter_projects_fragment" >
         <action
@@ -27,16 +27,19 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.knitting.SettingsFragment"
+        android:name="com.example.knitting.settings.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" >
         <action
             android:id="@+id/action_settingsFragment_to_counterProjectsFragment"
             app:destination="@id/counterProjectsFragment" />
+        <argument
+            android:name="counterID"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/counterFragment"
-        android:name="com.example.knitting.CounterFragment"
+        android:name="com.example.knitting.counter.CounterFragment"
         android:label="counter_fragment"
         tools:layout="@layout/counter_fragment" />
 </navigation>
