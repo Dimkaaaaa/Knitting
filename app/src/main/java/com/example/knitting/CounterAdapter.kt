@@ -9,7 +9,7 @@ import com.example.knitting.database.Counter
 import com.example.knitting.databinding.CounterItemBinding
 
 
-class CounterAdapter : ListAdapter<Counter, MyHolder>(CounterDiffCallback()) {
+class CounterAdapter(val clickListener: CounterListener) : ListAdapter<Counter, MyHolder>(CounterDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         return MyHolder.from(parent)
@@ -17,17 +17,16 @@ class CounterAdapter : ListAdapter<Counter, MyHolder>(CounterDiffCallback()) {
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         var item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
-
-
 }
 
 
 class MyHolder private constructor(val binding: CounterItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: Counter) {
+    fun bind(item: Counter, clickListener: CounterListener) {
         binding.counter = item
+        binding.clickListener = clickListener
         binding.executePendingBindings()
     }
 
@@ -49,4 +48,8 @@ class CounterDiffCallback : DiffUtil.ItemCallback<Counter>() {
         return oldItem == newItem
     }
 
+}
+
+class CounterListener(val clickListener: (counterID: Int) -> Unit) {
+    fun onClick(counter: Counter) = clickListener(counter.counterID)
 }

@@ -5,16 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="counter"
             type="com.example.knitting.database.Counter" />
+
+        <variable
+            name="clickListener"
+            type="com.example.knitting.CounterListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="12dp"
+        android:onClick="@{() -> clickListener.onClick(counter)}">
 
         <TextView
             android:id="@+id/textViewProjectName"
@@ -24,8 +30,8 @@
             android:text="ProjectName"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:projectName="@{counter}"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:projectName="@{counter}" />
 
 
         <TextView
@@ -36,9 +42,9 @@
             android:layout_marginTop="6dp"
             android:text="ProjectTime"
             android:textSize="20sp"
-            app:projectTime="@{counter}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewProjectName" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewProjectName"
+            app:projectTime="@{counter}" />
 
         <Button
             android:id="@+id/buttonProjectSettings"
