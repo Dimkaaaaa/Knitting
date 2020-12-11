@@ -6,7 +6,7 @@
 
     <data>
         <variable
-            name="Counter"
+            name="counter"
             type="com.example.knitting.database.Counter" />
     </data>
 
@@ -24,6 +24,7 @@
             android:text="ProjectName"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:projectName="@{counter}"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -35,6 +36,7 @@
             android:layout_marginTop="6dp"
             android:text="ProjectTime"
             android:textSize="20sp"
+            app:projectTime="@{counter}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewProjectName" />
 

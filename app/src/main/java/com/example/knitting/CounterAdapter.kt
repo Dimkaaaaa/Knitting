@@ -27,8 +27,8 @@ class CounterAdapter : ListAdapter<Counter, MyHolder>(CounterDiffCallback()) {
 class MyHolder private constructor(val binding: CounterItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Counter) {
-        binding.textViewProjectName.text = item.counterName
-        binding.textViewProjectTime.text = item.time.toString()
+        binding.counter = item
+        binding.executePendingBindings()
     }
 
     companion object {
