@@ -19,6 +19,10 @@ class CounterAdapter(val clickListener: CounterListener) : ListAdapter<Counter, 
         var item = getItem(position)
         holder.bind(item, clickListener)
     }
+
+    fun getCounterAtPosition(position: Int): Counter {
+        return getItem(position)
+    }
 }
 
 
