@@ -14,15 +14,24 @@ class CounterProjectsViewModel(val database: CounterDAO) : ViewModel() {
     val navigateToSettingFragment: LiveData<Counter>
         get() = _navigateToSettingFragment
 
+
+    var counters = database.getAllCounters()
+
+
     fun doneNavigatingToSettingFragment() {
         _navigateToSettingFragment.value = null
     }
 
-    var counters = database.getAllCounters()
+    fun deleteCounter(counter: Counter) {
+        viewModelScope.launch {
+            database.delete(counter)
+        }
+    }
 
     private suspend fun insert(counter: Counter) {
         database.insert(counter)
     }
+
 
     fun onNewProjectClick() {
         viewModelScope.launch {

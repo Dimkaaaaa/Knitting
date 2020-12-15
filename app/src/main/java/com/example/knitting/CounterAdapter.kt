@@ -23,6 +23,7 @@ class CounterAdapter(val clickListener: CounterListener) : ListAdapter<Counter, 
     fun getCounterAtPosition(position: Int): Counter {
         return getItem(position)
     }
+
 }
 
 

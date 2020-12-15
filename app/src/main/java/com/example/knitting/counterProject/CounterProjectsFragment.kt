@@ -23,8 +23,8 @@ class CounterProjectsFragment : Fragment() {
     lateinit var binding: CounterProjectsFragmentBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = CounterProjectsFragmentBinding.inflate(inflater, container, false)
 
@@ -35,37 +35,35 @@ class CounterProjectsFragment : Fragment() {
         val viewModelFactory = CounterProjectsViewModelFactory(dataSource)
         val counterProjectsViewModel = ViewModelProvider(this, viewModelFactory).get(CounterProjectsViewModel::class.java)
 
-        val adapter = CounterAdapter(CounterListener { counterID ->  
+        val adapter = CounterAdapter(CounterListener { counterID ->
             Toast.makeText(context, "$counterID", Toast.LENGTH_SHORT).show()
         })
 
+        binding.projectsList.adapter = adapter
+        binding.counterProjectsViewModel = counterProjectsViewModel
+        binding.lifecycleOwner = this
 
 
         val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val pos = viewHolder.adapterPosition
-                Toast.makeText(context, " Counter is touch ${adapter.getCounterAtPosition(pos).counterName}", Toast.LENGTH_SHORT).show()
+                counterProjectsViewModel.deleteCounter(adapter.getCounterAtPosition(pos))
                 adapter.notifyItemRemoved(pos)
+                adapter.notifyDataSetChanged()
             }
         }
-
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(binding.projectsList)
 
 
-        binding.projectsList.adapter = adapter
-
         counterProjectsViewModel.counters.observe(viewLifecycleOwner, Observer {
-            it?.let{
+            it?.let {
                 adapter.submitList(it)
             }
         })
 
-        binding.counterProjectsViewModel = counterProjectsViewModel
-        binding.lifecycleOwner = this
-
         counterProjectsViewModel.navigateToSettingFragment.observe(viewLifecycleOwner, Observer {
-            it?.let{
+            it?.let {
                 this.findNavController().navigate(CounterProjectsFragmentDirections.actionCounterProjectsFragmentToSettingsFragment(it.counterID))
                 counterProjectsViewModel.doneNavigatingToSettingFragment()
             }
