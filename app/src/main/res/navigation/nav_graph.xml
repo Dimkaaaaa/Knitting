@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_counterProjectsFragment_to_counterFragment"
             app:destination="@id/counterFragment" />
+        <action
+            android:id="@+id/action_counterProjectsFragment_to_myDialogFragment"
+            app:destination="@id/myDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -42,4 +45,8 @@
         android:name="com.example.knitting.counter.CounterFragment"
         android:label="counter_fragment"
         tools:layout="@layout/counter_fragment" />
+    <fragment
+        android:id="@+id/myDialogFragment"
+        android:name="com.example.knitting.MyDialogFragment"
+        android:label="MyDialogFragment" />
 </navigation>
