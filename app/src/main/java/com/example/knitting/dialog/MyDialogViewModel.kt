@@ -28,13 +28,13 @@ class MyDialogViewModel(val database: CounterDAO) : ViewModel() {
         projectNameText.value = ""
     }
 
-    fun doneNavigating(){
+    fun doneNavigating() {
         _navigateToCounterProject.value = null
     }
 
 
     private fun onInsertNewCounter() {
-        viewModelScope.launch{
+        viewModelScope.launch {
             Dispatchers.IO
             val counter = Counter()
             counter.counterName = projectNameText.value.toString()
@@ -45,9 +45,10 @@ class MyDialogViewModel(val database: CounterDAO) : ViewModel() {
     fun onOk() {
         if (projectNameText.value.toString().isEmpty())
             _visibility.value = View.VISIBLE
-        else
+        else {
             onInsertNewCounter()
             _navigateToCounterProject.value = true
+        }
     }
 
     fun onCancel() {

@@ -32,8 +32,8 @@ class MyDialogFragment : DialogFragment() {
             binding.lifecycleOwner = this
             binding.myDialogViewModel = viewModel
 
-            viewModel.navigateToCounterProject.observe(this.requireActivity(), Observer {
-                it?.let {
+            viewModel.navigateToCounterProject.observe(this.requireActivity(), Observer {navigation ->
+                navigation?.let {
                     this.dialog?.cancel()
                     viewModel.doneNavigating()
                 }

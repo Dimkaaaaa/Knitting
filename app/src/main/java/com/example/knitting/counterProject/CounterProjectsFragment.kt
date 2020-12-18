@@ -15,6 +15,7 @@ import com.example.knitting.CounterListener
 import com.example.knitting.SwipeToDeleteCallback
 import com.example.knitting.database.CounterDatabase
 import com.example.knitting.databinding.CounterProjectsFragmentBinding
+import com.example.knitting.dialog.MyDialogFragment
 
 class CounterProjectsFragment : Fragment() {
 
@@ -35,7 +36,9 @@ class CounterProjectsFragment : Fragment() {
         counterProjectsViewModel = ViewModelProvider(this, viewModelFactory).get(CounterProjectsViewModel::class.java)
 
         val adapter = CounterAdapter(CounterListener { counterID ->
-            this.findNavController().navigate(CounterProjectsFragmentDirections.actionCounterProjectsFragmentToMyDialogFragment())
+            val myDialog = MyDialogFragment()
+            myDialog.show(childFragmentManager, "My first dialog")
+//            this.findNavController().navigate(CounterProjectsFragmentDirections.actionCounterProjectsFragmentToMyDialogFragment())
         })
 
         binding.projectsList.adapter = adapter
