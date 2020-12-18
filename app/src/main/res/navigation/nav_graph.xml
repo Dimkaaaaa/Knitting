@@ -19,23 +19,8 @@
         android:label="counter_projects_fragment"
         tools:layout="@layout/counter_projects_fragment" >
         <action
-            android:id="@+id/action_counterProjectsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
             android:id="@+id/action_counterProjectsFragment_to_counterFragment"
             app:destination="@id/counterFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.knitting.settings.SettingsFragment"
-        android:label="settings_fragment"
-        tools:layout="@layout/settings_fragment" >
-        <action
-            android:id="@+id/action_settingsFragment_to_counterProjectsFragment"
-            app:destination="@id/counterProjectsFragment" />
-        <argument
-            android:name="counterID"
-            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/counterFragment"

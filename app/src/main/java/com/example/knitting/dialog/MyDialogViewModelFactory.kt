@@ -1,14 +1,14 @@
-package com.example.knitting.settings
+package com.example.knitting.dialog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.knitting.database.CounterDAO
 
-class SettingsViewModelFactory(private val counterIdKey: Int, private val dataSource: CounterDAO ): ViewModelProvider.Factory {
+class MyDialogViewModelFactory(private val dataSource: CounterDAO): ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
-            return SettingsViewModel( counterIdKey, dataSource) as T
+        if (modelClass.isAssignableFrom(MyDialogViewModel::class.java)) {
+            return MyDialogViewModel(dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

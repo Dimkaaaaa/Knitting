@@ -1,26 +1,18 @@
 package com.example.knitting.counterProject
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.knitting.database.Counter
 import com.example.knitting.database.CounterDAO
+import com.example.knitting.dialog.MyDialogFragment
 import kotlinx.coroutines.launch
 
-class CounterProjectsViewModel(val database: CounterDAO) : ViewModel() {
-
-    private var _navigateToSettingFragment = MutableLiveData<Counter>()
-    val navigateToSettingFragment: LiveData<Counter>
-        get() = _navigateToSettingFragment
-
+class CounterProjectsViewModel(val database: CounterDAO, val fragmentManager: FragmentManager) :
+    ViewModel() {
 
     var counters = database.getAllCounters()
 
-
-    fun doneNavigatingToSettingFragment() {
-        _navigateToSettingFragment.value = null
-    }
 
     fun deleteCounter(counter: Counter) {
         viewModelScope.launch {
@@ -34,10 +26,7 @@ class CounterProjectsViewModel(val database: CounterDAO) : ViewModel() {
 
 
     fun onNewProjectClick() {
-        viewModelScope.launch {
-            var counter = Counter()
-            insert(counter)
-            _navigateToSettingFragment.value = database.getCounter()
-        }
+        val myDialog = MyDialogFragment()
+        myDialog.show(fragmentManager, "My first dialog")
     }
 }
