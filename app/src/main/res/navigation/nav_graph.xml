@@ -45,8 +45,8 @@
         android:name="com.example.knitting.counter.CounterFragment"
         android:label="counter_fragment"
         tools:layout="@layout/counter_fragment" />
-    <fragment
+    <dialog
         android:id="@+id/myDialogFragment"
-        android:name="com.example.knitting.MyDialogFragment"
+        android:name="com.example.knitting.dialog.MyDialogFragment"
         android:label="MyDialogFragment" />
 </navigation>

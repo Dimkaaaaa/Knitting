@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knitting.CounterAdapter
 import com.example.knitting.CounterListener
-import com.example.knitting.MyDialogFragment
 import com.example.knitting.SwipeToDeleteCallback
 import com.example.knitting.database.CounterDatabase
 import com.example.knitting.databinding.CounterProjectsFragmentBinding
@@ -36,8 +35,7 @@ class CounterProjectsFragment : Fragment() {
         counterProjectsViewModel = ViewModelProvider(this, viewModelFactory).get(CounterProjectsViewModel::class.java)
 
         val adapter = CounterAdapter(CounterListener { counterID ->
-            val myDialog = MyDialogFragment()
-            myDialog.show(childFragmentManager, "My first dialog")
+            this.findNavController().navigate(CounterProjectsFragmentDirections.actionCounterProjectsFragmentToMyDialogFragment())
         })
 
         binding.projectsList.adapter = adapter
