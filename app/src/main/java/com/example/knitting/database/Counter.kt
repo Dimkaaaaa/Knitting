@@ -13,10 +13,10 @@ data class Counter(
         var counterName: String = " ",
 
         @ColumnInfo(name = "count_number")
-        var countNumber: Long = 1L,
+        var countNumber: Long = 0L,
 
         @ColumnInfo(name = "time")
-        var time: Long = 1L,
+        var time: Long = 0L,
 
         @ColumnInfo(name = "step")
         var step: Long = 1,

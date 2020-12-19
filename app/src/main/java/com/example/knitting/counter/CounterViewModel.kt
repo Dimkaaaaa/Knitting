@@ -31,13 +31,41 @@ class CounterViewModel(private val dataSource: CounterDAO, val counterID: Int) :
         }
     }
 
+    fun onMinusClick() {
+        val newCounter = counter.value?.let { decrease(it) }
+        viewModelScope.launch {
+            if (newCounter != null) {
+                database.update(newCounter)
+            }
+        }
+    }
 
-    private fun increase(counter: Counter): Counter{
+    fun onResetClick() {
+        val newCounter = counter.value
+        newCounter?.step = 1
+        newCounter?.countNumber = 0
+        viewModelScope.launch {
+            if (newCounter != null) {
+                database.update(newCounter)
+            }
+        }
+    }
+
+    private fun increase(counter: Counter): Counter {
         val a = counter.countNumber
         val b = step.value?.toLong()
         counter.countNumber = a + b!!
         counter.step = step.value?.toLong() ?: 0
         return counter
     }
+
+    private fun decrease(counter: Counter): Counter {
+        val a = counter.countNumber
+        val b = step.value?.toLong()
+        counter.countNumber = a - b!!
+        counter.step = step.value?.toLong() ?: 0
+        return counter
+    }
+
 
 }
