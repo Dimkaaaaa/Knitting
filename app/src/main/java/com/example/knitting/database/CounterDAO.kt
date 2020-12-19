@@ -16,10 +16,10 @@ interface CounterDAO {
     suspend fun delete (counter: Counter)
 
     @Query ("SELECT * FROM counter_table WHERE counterID = :counterID")
-    suspend fun get (counterID: Int): Counter
+    fun get (counterID: Int): LiveData<Counter>
 
     @Query("SELECT * FROM counter_table ORDER BY counterID DESC LIMIT 1")
-    suspend fun getCounter(): Counter?
+    suspend fun getFirstCounter(): Counter?
 
     @Query("SELECT * FROM counter_table ORDER BY counterID DESC")
     fun getAllCounters(): LiveData<List<Counter>>

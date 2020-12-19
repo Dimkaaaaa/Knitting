@@ -13,13 +13,13 @@ data class Counter(
         var counterName: String = " ",
 
         @ColumnInfo(name = "count_number")
-        var countNumber: Long = 0L,
+        var countNumber: Long = 1L,
 
         @ColumnInfo(name = "time")
-        var time: Long = 0L,
+        var time: Long = 1L,
 
         @ColumnInfo(name = "step")
-        var step: Int = 1,
+        var step: Long = 1,
 
         @ColumnInfo(name = "note")
         var note: String = " "
