@@ -22,5 +22,8 @@ data class Counter(
         var step: Long = 1,
 
         @ColumnInfo(name = "note")
-        var note: String = " "
+        var note: String = " ",
+
+        @ColumnInfo(name = "state")
+        var state: String = ""
 )

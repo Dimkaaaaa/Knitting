@@ -1,29 +1,33 @@
 package com.example.knitting.counter
 
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.*
 import com.example.knitting.database.Counter
 import com.example.knitting.database.CounterDAO
+import com.example.knitting.dialog.QuestionDialog
 import kotlinx.coroutines.launch
 
-class CounterViewModel(private val dataSource: CounterDAO, val counterID: Int) : ViewModel() {
+class CounterViewModel(
+    private val dataSource: CounterDAO,
+    private val counterID: Int,
+    private val fragmentManager: FragmentManager
+) : ViewModel() {
 
 
     val database = dataSource
-    private val counter = MediatorLiveData<Counter>()
-    fun getCounter() = counter
+    private val _counter = MediatorLiveData<Counter>()
+    val counter: LiveData<Counter>
+            get() = _counter
 
     var step = MutableLiveData<String>()
 
 
     init {
-        counter.addSource(database.get(counterID), counter::setValue)
+        _counter.addSource(database.get(counterID), _counter::setValue)
     }
 
     fun onPlusClick() {
-        val newCounter = counter.value?.let { increase(it) }
+        val newCounter = _counter.value?.let { increase(it) }
         viewModelScope.launch {
             if (newCounter != null) {
                 database.update(newCounter)
@@ -32,7 +36,7 @@ class CounterViewModel(private val dataSource: CounterDAO, val counterID: Int) :
     }
 
     fun onMinusClick() {
-        val newCounter = counter.value?.let { decrease(it) }
+        val newCounter = _counter.value?.let { decrease(it) }
         viewModelScope.launch {
             if (newCounter != null) {
                 database.update(newCounter)
@@ -40,10 +44,15 @@ class CounterViewModel(private val dataSource: CounterDAO, val counterID: Int) :
         }
     }
 
+    fun onStateChange(){
+        _counter.value?.let { QuestionDialog(it) }?.show(fragmentManager, "Question dialog")
+    }
+
     fun onResetClick() {
-        val newCounter = counter.value
+        val newCounter = _counter.value
         newCounter?.step = 1
         newCounter?.countNumber = 0
+        newCounter?.state = ""
         viewModelScope.launch {
             if (newCounter != null) {
                 database.update(newCounter)
