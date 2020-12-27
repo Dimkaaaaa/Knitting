@@ -11,20 +11,26 @@
         tools:layout="@layout/main_menu_fragment">
         <action
             android:id="@+id/action_mainMenuFragment_to_counterProjectsFragment"
-            app:destination="@id/counterProjectsFragment" />
+            app:destination="@id/counterProjectsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/counterProjectsFragment"
         android:name="com.example.knitting.counterProject.CounterProjectsFragment"
         android:label="counter_projects_fragment"
-        tools:layout="@layout/counter_projects_fragment" >
+        tools:layout="@layout/counter_projects_fragment">
         <action
             android:id="@+id/action_counterProjectsFragment_to_counterFragment"
-            app:destination="@id/counterFragment" />
+            app:destination="@id/counterFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/counterFragment"
         android:name="com.example.knitting.counter.CounterFragment"
         android:label="counter_fragment"
-        tools:layout="@layout/counter_fragment" />
+        tools:layout="@layout/counter_fragment">
+        <argument
+            android:name="counterID"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="questionViewModel"
+            type="com.example.knitting.dialog.QuestionDialogViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".dialog.QuestionDialog">
+
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Первый ряд связан?"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_24" />
+
+        <Button
+            android:id="@+id/done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="@{()->questionViewModel.onDoneButtonCLick()}"
+            android:text="Связан" />
+
+        <Button
+            android:id="@+id/will"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:onClick="@{()->questionViewModel.onWillButtonCLick()}"
+            android:text="Буду вязать" />
+
+    </LinearLayout>
+
+</layout>

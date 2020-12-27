@@ -19,8 +19,11 @@ data class Counter(
         var time: Long = 0L,
 
         @ColumnInfo(name = "step")
-        var step: Int = 1,
+        var step: Long = 1,
 
         @ColumnInfo(name = "note")
-        var note: String = " "
+        var note: String = " ",
+
+        @ColumnInfo(name = "state")
+        var state: String = ""
 )
