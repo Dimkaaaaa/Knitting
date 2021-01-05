@@ -56,16 +56,22 @@ class CounterFragment : Fragment() {
 
         var chronometer = binding.chronometerTime
 
+        var myTime = 0L
+        var startTime = 0L
+        var endTime = 0L
+
         binding.imageButtonPlayPause.setOnClickListener {
-            chronometer.base = SystemClock.elapsedRealtime() - 20000
+            startTime = SystemClock.elapsedRealtime()
+            chronometer.base = SystemClock.elapsedRealtime() + myTime
             chronometer.start()
         }
         binding.imageButtonPause.setOnClickListener{
+            myTime += startTime - SystemClock.elapsedRealtime()
             chronometer.stop()
         }
         binding.imageButtonResetTimer.setOnClickListener{
 
-            Toast.makeText(context,binding.chronometerTime.text,Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"StartTime = $startTime \n EndTime = $myTime",Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
