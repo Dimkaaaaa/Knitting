@@ -1,5 +1,6 @@
 package com.example.knitting.counter
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +10,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.knitting.database.CounterDatabase
 import com.example.knitting.databinding.CounterFragmentBinding
+import com.example.knitting.hideKeyboard
 
 class CounterFragment : Fragment() {
 
     private lateinit var viewModel: CounterViewModel
     private lateinit var binding: CounterFragmentBinding
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +32,20 @@ class CounterFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(CounterViewModel::class.java)
         binding.counterViewModel = viewModel
         binding.lifecycleOwner = this
+
+        binding.multiAutoCompleteTextViewNote.setOnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus){
+                v.hideKeyboard()
+                v.clearFocus()
+            }
+        }
+        binding.editTextCounterStep.setOnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus){
+                v.hideKeyboard()
+                v.clearFocus()
+            }
+        }
+
 
         viewModel.counter.observe(viewLifecycleOwner, Observer {
             if (it.countNumber.toInt() != 0 && it.state.isEmpty())
