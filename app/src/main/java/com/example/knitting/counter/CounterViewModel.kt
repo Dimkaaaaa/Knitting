@@ -21,6 +21,7 @@ class CounterViewModel(
 
     var step = MutableLiveData<String>()
 
+    private var timerState = false
 
     init {
         _counter.addSource(database.get(counterID), _counter::setValue)
@@ -58,6 +59,10 @@ class CounterViewModel(
                 database.update(newCounter)
             }
         }
+    }
+
+    fun onPlayPauseClick(){
+
     }
 
     private fun increase(counter: Counter): Counter {

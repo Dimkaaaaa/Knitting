@@ -87,18 +87,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textViewNumber" />
 
-        <MultiAutoCompleteTextView
-            android:id="@+id/multiAutoCompleteTextViewNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="24dp"
-            android:hint="Заметки..."
-            android:nestedScrollingEnabled="true"
-            android:paddingStart="12dp"
-            android:paddingEnd="24dp"
+            android:layout_marginBottom="12dp"
+            android:paddingBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chronometerTime" />
+            app:layout_constraintTop_toBottomOf="@+id/chronometerTime">
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/multiAutoCompleteTextViewNote"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="Заметки..."
+                android:overScrollMode="always"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:text="gsdfgsdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdgsdgsdfgsdfgsdfgsdfgsdg" />
+        </ScrollView>
 
         <TextView
             android:id="@+id/textViewCounterStep"
@@ -121,5 +135,36 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonPlayPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:src="@android:drawable/ic_media_play"
+            app:layout_constraintBottom_toBottomOf="@+id/chronometerTime"
+            app:layout_constraintStart_toEndOf="@+id/chronometerTime"
+            app:layout_constraintTop_toTopOf="@+id/chronometerTime" />
+
+        <ImageButton
+            android:id="@+id/imageButtonResetTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:src="@android:drawable/picture_frame"
+            app:layout_constraintBottom_toBottomOf="@+id/chronometerTime"
+            app:layout_constraintEnd_toStartOf="@+id/chronometerTime"
+            app:layout_constraintTop_toTopOf="@+id/chronometerTime" />
+
+        <ImageButton
+            android:id="@+id/imageButtonPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_pause"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonPlayPause"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonPlayPause"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonPlayPause" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

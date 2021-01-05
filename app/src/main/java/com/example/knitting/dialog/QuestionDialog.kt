@@ -33,6 +33,7 @@ class QuestionDialog(val counter: Counter) : DialogFragment() {
             binding.questionViewModel = viewModel
 
 
+
             viewModel.navigateToCounter.observe(this.requireActivity(), Observer {navigation ->
                 navigation?.let {
                     this.dialog?.cancel()
