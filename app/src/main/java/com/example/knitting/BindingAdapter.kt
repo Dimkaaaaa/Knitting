@@ -1,7 +1,9 @@
 package com.example.knitting
 
+import android.os.SystemClock
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Chronometer
 import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -51,7 +53,16 @@ fun EditText.setCounterStep(item: Counter?) {
     }
 }
 
+@BindingAdapter("counterTime")
+fun Chronometer.counterTime(item: Counter?) {
+    item?.let {
+        base = SystemClock.elapsedRealtime() + item.time
+    }
+}
+
+
 fun View.hideKeyboard() {
-    val inputMethodManager = context!!.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+    val inputMethodManager =
+        context!!.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     inputMethodManager?.hideSoftInputFromWindow(this.windowToken, 0)
 }

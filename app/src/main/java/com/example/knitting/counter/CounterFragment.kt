@@ -6,7 +6,6 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -34,6 +33,7 @@ class CounterFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(CounterViewModel::class.java)
         binding.counterViewModel = viewModel
         binding.lifecycleOwner = this
+        binding.imageButtonPause.visibility = View.INVISIBLE
 
         binding.multiAutoCompleteTextViewNote.setOnFocusChangeListener { v, hasFocus ->
             if(!hasFocus){
@@ -54,25 +54,19 @@ class CounterFragment : Fragment() {
         })
 
 
-        var chronometer = binding.chronometerTime
-
-        var myTime = 0L
-        var startTime = 0L
-        var endTime = 0L
-
-        binding.imageButtonPlayPause.setOnClickListener {
-            startTime = SystemClock.elapsedRealtime()
-            chronometer.base = SystemClock.elapsedRealtime() + myTime
-            chronometer.start()
-        }
-        binding.imageButtonPause.setOnClickListener{
-            myTime += startTime - SystemClock.elapsedRealtime()
-            chronometer.stop()
-        }
-        binding.imageButtonResetTimer.setOnClickListener{
-
-            Toast.makeText(context,"StartTime = $startTime \n EndTime = $myTime",Toast.LENGTH_SHORT).show()
-        }
+        viewModel.timerState.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.chronometerTime.base = SystemClock.elapsedRealtime() + viewModel.time.value!!
+                binding.chronometerTime.start()
+                binding.imageButtonPlay.visibility = View.INVISIBLE
+                binding.imageButtonPause.visibility = View.VISIBLE
+            }
+            if(!it){
+                binding.chronometerTime.stop()
+                binding.imageButtonPlay.visibility = View.VISIBLE
+                binding.imageButtonPause.visibility = View.INVISIBLE
+            }
+        })
 
         return binding.root
     }

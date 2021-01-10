@@ -1,5 +1,6 @@
 package com.example.knitting.counter
 
+import android.os.SystemClock
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
 import com.example.knitting.database.Counter
@@ -17,14 +18,24 @@ class CounterViewModel(
     val database = dataSource
     private val _counter = MediatorLiveData<Counter>()
     val counter: LiveData<Counter>
-            get() = _counter
+        get() = _counter
 
     var step = MutableLiveData<String>()
 
-    private var timerState = false
+    private var startTime = 0L
+
+    private val _time = MutableLiveData<Long>()
+    val time: LiveData<Long>
+        get() = _time
+
+    private val _timerState = MediatorLiveData<Boolean>()
+    val timerState: LiveData<Boolean>
+        get() = _timerState
 
     init {
         _counter.addSource(database.get(counterID), _counter::setValue)
+        _timerState.value = false
+        _time.value = 0L
     }
 
     fun onPlusClick() {
@@ -45,7 +56,7 @@ class CounterViewModel(
         }
     }
 
-    fun onStateChange(){
+    fun onStateChange() {
         _counter.value?.let { QuestionDialog(it) }?.show(fragmentManager, "Question dialog")
     }
 
@@ -61,8 +72,23 @@ class CounterViewModel(
         }
     }
 
-    fun onPlayPauseClick(){
+    fun onPlayClick() {
+        _time.value = _counter.value?.time
+        startTime = SystemClock.elapsedRealtime()
+        _timerState.value = true
+    }
 
+
+    fun onPauseClick() {
+        _time.value = _time.value?.plus(startTime - SystemClock.elapsedRealtime())
+        _timerState.value = false
+        viewModelScope.launch{
+            val newCounter = _counter.value
+            newCounter?.time = _time.value!!
+            if (newCounter != null) {
+                database.update(newCounter)
+            }
+        }
     }
 
     private fun increase(counter: Counter): Counter {

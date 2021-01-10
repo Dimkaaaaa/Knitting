@@ -63,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:textSize="24sp"
+            app:counterTime="@{counterViewModel.counter}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewState" />
@@ -137,9 +138,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButtonPlayPause"
+            android:id="@+id/imageButtonPlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> counterViewModel.onPlayClick()}"
             android:layout_marginStart="24dp"
             android:src="@android:drawable/ic_media_play"
             app:layout_constraintBottom_toBottomOf="@+id/chronometerTime"
@@ -161,9 +163,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_media_pause"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButtonPlayPause"
-            app:layout_constraintStart_toEndOf="@+id/imageButtonPlayPause"
-            app:layout_constraintTop_toTopOf="@+id/imageButtonPlayPause" />
+            android:onClick="@{()-> counterViewModel.onPauseClick()}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonPlay"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonPlay"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonPlay" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
