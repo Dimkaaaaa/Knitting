@@ -32,6 +32,10 @@ class CounterViewModel(
     val timerState: LiveData<Boolean>
         get() = _timerState
 
+
+
+
+
     init {
         _counter.addSource(database.get(counterID), _counter::setValue)
         _timerState.value = false
@@ -85,6 +89,18 @@ class CounterViewModel(
         viewModelScope.launch{
             val newCounter = _counter.value
             newCounter?.time = _time.value!!
+            if (newCounter != null) {
+                database.update(newCounter)
+            }
+        }
+    }
+
+    fun onResetTimerClick(){
+        _time.value = 0L
+        startTime = 0L
+        viewModelScope.launch{
+            val newCounter = _counter.value
+            newCounter?.time = 0L
             if (newCounter != null) {
                 database.update(newCounter)
             }

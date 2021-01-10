@@ -68,6 +68,14 @@ class CounterFragment : Fragment() {
             }
         })
 
+        binding.imageButtonResetTimer.setOnClickListener {
+            viewModel.onResetTimerClick()
+            binding.chronometerTime.stop()
+            binding.chronometerTime.base = SystemClock.elapsedRealtime() + viewModel.time.value!!
+            binding.imageButtonPlay.visibility = View.VISIBLE
+            binding.imageButtonPause.visibility = View.INVISIBLE
+        }
+
         return binding.root
     }
 }
