@@ -5,33 +5,41 @@
     tools:context=".counter.CounterFragment">
 
     <data>
+
         <variable
             name="counterViewModel"
             type="com.example.knitting.counter.CounterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:id="@+id/textViewNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:focusableInTouchMode="true"
+            android:onClick="@{() ->  counterViewModel.onPlusClick()}"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
             android:text="5"
-            app:counterNumber="@{counterViewModel.counter}"
             android:textSize="128sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButtonMenu" />
+            app:counterNumber="@{counterViewModel.counter}"
+            app:layout_constraintEnd_toStartOf="@+id/imageButtonMinus"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonReset"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCounterProjectName" />
 
         <TextView
             android:id="@+id/textViewState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:counterState="@{counterViewModel.counter}"
             android:textSize="24sp"
+            app:counterState="@{counterViewModel.counter}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewNumber" />
@@ -43,83 +51,76 @@
             android:layout_marginEnd="24dp"
             android:inputType="number"
             android:text="@={counterViewModel.step}"
-            app:counterStep="@{counterViewModel.counter}"
             android:textSize="24sp"
+            app:counterStep="@{counterViewModel.counter}"
             app:layout_constraintBottom_toBottomOf="@+id/textViewNumber"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageButton
-            android:id="@+id/imageButtonPlus"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
-            android:layout_marginTop="12dp"
-            android:onClick="@{() ->  counterViewModel.onPlusClick()}"
-            android:src="@android:drawable/ic_menu_add"
+
+        <Chronometer
+            android:id="@+id/chronometerTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textSize="24sp"
+            app:counterTime="@{counterViewModel.counter}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewState" />
 
-        <TextView
-            android:id="@+id/editTextTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:inputType="time"
-            android:text="12:11:35"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButtonPlus" />
-
         <ImageButton
             android:id="@+id/imageButtonMinus"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="64dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="24dp"
             android:onClick="@{()->counterViewModel.onMinusClick()}"
             android:src="@android:drawable/presence_busy"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewNumber" />
 
         <ImageButton
             android:id="@+id/imageButtonReset"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="64dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="24dp"
             android:onClick="@{()->counterViewModel.onResetClick()}"
             android:src="@android:drawable/ic_menu_rotate"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButtonMinus"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageButtonMinus" />
-
-        <ImageButton
-            android:id="@+id/imageButtonMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:src="@android:drawable/ic_menu_manage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <MultiAutoCompleteTextView
-            android:id="@+id/multiAutoCompleteTextViewNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:hint="Заметки..."
-            android:paddingStart="12dp"
-            android:paddingEnd="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButtonMinus" />
+            app:layout_constraintTop_toTopOf="@+id/textViewNumber" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp"
+            android:paddingBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chronometerTime">
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/multiAutoCompleteTextViewNote"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:hint="Заметки..."
+                android:overScrollMode="always"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:text="gsdfgsdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdgsdgsdfgsdfgsdfgsdfgsdg" />
+        </ScrollView>
 
         <TextView
             android:id="@+id/textViewCounterStep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Шаг"
             android:layout_marginEnd="8dp"
+            android:text="Шаг"
             app:layout_constraintBottom_toBottomOf="@+id/editTextCounterStep"
             app:layout_constraintEnd_toStartOf="@+id/editTextCounterStep"
             app:layout_constraintTop_toTopOf="@+id/editTextCounterStep" />
@@ -128,12 +129,45 @@
             android:id="@+id/textViewCounterProjectName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:hint="Название проекта"
             android:textSize="24sp"
             app:counterName="@{counterViewModel.counter}"
-            app:layout_constraintBottom_toTopOf="@+id/textViewNumber"
-            app:layout_constraintEnd_toStartOf="@+id/imageButtonMenu"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageButtonMenu" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> counterViewModel.onPlayClick()}"
+            android:layout_marginStart="24dp"
+            android:src="@android:drawable/ic_media_play"
+            app:layout_constraintBottom_toBottomOf="@+id/chronometerTime"
+            app:layout_constraintStart_toEndOf="@+id/chronometerTime"
+            app:layout_constraintTop_toTopOf="@+id/chronometerTime" />
+
+        <ImageButton
+            android:id="@+id/imageButtonResetTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:src="@android:drawable/picture_frame"
+            app:layout_constraintBottom_toBottomOf="@+id/chronometerTime"
+            app:layout_constraintEnd_toStartOf="@+id/chronometerTime"
+            app:layout_constraintTop_toTopOf="@+id/chronometerTime" />
+
+        <ImageButton
+            android:id="@+id/imageButtonPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_pause"
+            android:onClick="@{()-> counterViewModel.onPauseClick()}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonPlay"
+            app:layout_constraintStart_toEndOf="@+id/imageButtonPlay"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonPlay" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
