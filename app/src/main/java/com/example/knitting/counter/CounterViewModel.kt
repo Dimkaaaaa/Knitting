@@ -44,6 +44,11 @@ class CounterViewModel(
 
     fun onPlusClick() {
         val newCounter = _counter.value?.let { increase(it) }
+        if (_timerState.value == true){
+            _time.value = _time.value?.plus(startTime - SystemClock.elapsedRealtime())
+            newCounter?.time = _time.value!!
+            startTime = SystemClock.elapsedRealtime()
+        } else onPlayClick()
         viewModelScope.launch {
             if (newCounter != null) {
                 database.update(newCounter)
@@ -53,6 +58,11 @@ class CounterViewModel(
 
     fun onMinusClick() {
         val newCounter = _counter.value?.let { decrease(it) }
+        if (_timerState.value == true){
+            _time.value = _time.value?.plus(startTime - SystemClock.elapsedRealtime())
+            newCounter?.time = _time.value!!
+            startTime = SystemClock.elapsedRealtime()
+        } else onPlayClick()
         viewModelScope.launch {
             if (newCounter != null) {
                 database.update(newCounter)
@@ -69,6 +79,11 @@ class CounterViewModel(
         newCounter?.step = 1
         newCounter?.countNumber = 0
         newCounter?.state = ""
+        if (_timerState.value == true){
+            _time.value = _time.value?.plus(startTime - SystemClock.elapsedRealtime())
+            newCounter?.time = _time.value!!
+            startTime = SystemClock.elapsedRealtime()
+        } else onPlayClick()
         viewModelScope.launch {
             if (newCounter != null) {
                 database.update(newCounter)
@@ -98,6 +113,7 @@ class CounterViewModel(
     fun onResetTimerClick(){
         _time.value = 0L
         startTime = 0L
+        _timerState.value = false
         viewModelScope.launch{
             val newCounter = _counter.value
             newCounter?.time = 0L
