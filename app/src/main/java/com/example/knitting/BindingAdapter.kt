@@ -5,6 +5,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Chronometer
 import android.widget.EditText
+import android.widget.MultiAutoCompleteTextView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.knitting.database.Counter
@@ -52,6 +53,14 @@ fun EditText.setCounterStep(item: Counter?) {
         setText(item.step.toString())
     }
 }
+
+@BindingAdapter("counterNote")
+fun MultiAutoCompleteTextView.setNote(item: Counter?) {
+    item?.let {
+        setText(item.note)
+    }
+}
+
 
 @BindingAdapter("counterTime")
 fun Chronometer.counterTime(item: Counter?) {

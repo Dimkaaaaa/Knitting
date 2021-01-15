@@ -112,7 +112,8 @@
                 android:paddingEnd="12dp"
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
-                android:text="gsdfgsdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdsfdfgsdfgsdfgdgsdgsdfgsdfgsdfgsdfgsdg" />
+                android:text="@={counterViewModel.note}"
+                app:counterNote="@{counterViewModel.counter}" />
         </ScrollView>
 
         <TextView
@@ -141,8 +142,8 @@
             android:id="@+id/imageButtonPlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> counterViewModel.onPlayClick()}"
             android:layout_marginStart="24dp"
+            android:onClick="@{() -> counterViewModel.onPlayClick()}"
             android:src="@android:drawable/ic_media_play"
             app:layout_constraintBottom_toBottomOf="@+id/chronometerTime"
             app:layout_constraintStart_toEndOf="@+id/chronometerTime"
@@ -162,8 +163,8 @@
             android:id="@+id/imageButtonPause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_media_pause"
             android:onClick="@{()-> counterViewModel.onPauseClick()}"
+            android:src="@android:drawable/ic_media_pause"
             app:layout_constraintBottom_toBottomOf="@+id/imageButtonPlay"
             app:layout_constraintStart_toEndOf="@+id/imageButtonPlay"
             app:layout_constraintTop_toTopOf="@+id/imageButtonPlay" />
