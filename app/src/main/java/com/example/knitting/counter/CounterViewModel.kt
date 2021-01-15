@@ -21,6 +21,7 @@ class CounterViewModel(
         get() = _counter
 
     var step = MutableLiveData<String>()
+    var note = MutableLiveData<String>()
 
     private var startTime = 0L
 
@@ -33,9 +34,6 @@ class CounterViewModel(
         get() = _timerState
 
 
-
-
-
     init {
         _counter.addSource(database.get(counterID), _counter::setValue)
         _timerState.value = false
@@ -44,11 +42,7 @@ class CounterViewModel(
 
     fun onPlusClick() {
         val newCounter = _counter.value?.let { increase(it) }
-        if (_timerState.value == true){
-            _time.value = _time.value?.plus(startTime - SystemClock.elapsedRealtime())
-            newCounter?.time = _time.value!!
-            startTime = SystemClock.elapsedRealtime()
-        } else onPlayClick()
+        timeUpdate(newCounter)
         viewModelScope.launch {
             if (newCounter != null) {
                 database.update(newCounter)
@@ -58,11 +52,7 @@ class CounterViewModel(
 
     fun onMinusClick() {
         val newCounter = _counter.value?.let { decrease(it) }
-        if (_timerState.value == true){
-            _time.value = _time.value?.plus(startTime - SystemClock.elapsedRealtime())
-            newCounter?.time = _time.value!!
-            startTime = SystemClock.elapsedRealtime()
-        } else onPlayClick()
+        timeUpdate(newCounter)
         viewModelScope.launch {
             if (newCounter != null) {
                 database.update(newCounter)
@@ -79,11 +69,7 @@ class CounterViewModel(
         newCounter?.step = 1
         newCounter?.countNumber = 0
         newCounter?.state = ""
-        if (_timerState.value == true){
-            _time.value = _time.value?.plus(startTime - SystemClock.elapsedRealtime())
-            newCounter?.time = _time.value!!
-            startTime = SystemClock.elapsedRealtime()
-        } else onPlayClick()
+        timeUpdate(newCounter)
         viewModelScope.launch {
             if (newCounter != null) {
                 database.update(newCounter)
@@ -97,26 +83,30 @@ class CounterViewModel(
         _timerState.value = true
     }
 
-
     fun onPauseClick() {
         _time.value = _time.value?.plus(startTime - SystemClock.elapsedRealtime())
         _timerState.value = false
-        viewModelScope.launch{
+        viewModelScope.launch {
             val newCounter = _counter.value
             newCounter?.time = _time.value!!
+            newCounter?.step = step.value?.toLong()!!
+            newCounter?.note = note.value.toString()
             if (newCounter != null) {
                 database.update(newCounter)
             }
         }
     }
 
-    fun onResetTimerClick(){
+
+    fun onResetTimerClick() {
         _time.value = 0L
         startTime = 0L
         _timerState.value = false
-        viewModelScope.launch{
+        viewModelScope.launch {
             val newCounter = _counter.value
             newCounter?.time = 0L
+            newCounter?.step = step.value?.toLong()!!
+            newCounter?.note = note.value.toString()
             if (newCounter != null) {
                 database.update(newCounter)
             }
@@ -139,5 +129,15 @@ class CounterViewModel(
         return counter
     }
 
-
+    private fun timeUpdate(newCounter: Counter?) {
+        if (_timerState.value == true) {
+            _time.value = _time.value?.plus(startTime - SystemClock.elapsedRealtime())
+            newCounter?.time = _time.value!!
+            startTime = SystemClock.elapsedRealtime()
+            newCounter?.note = note.value.toString()
+        } else {
+            onPlayClick()
+            newCounter?.note = note.value.toString()
+        }
+    }
 }
