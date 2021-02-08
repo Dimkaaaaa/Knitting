@@ -6,9 +6,11 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.knitting.database.CounterDatabase
 import com.example.knitting.databinding.CounterFragmentBinding
 import com.example.knitting.hideKeyboard
@@ -35,14 +37,21 @@ class CounterFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.imageButtonPause.visibility = View.INVISIBLE
 
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (viewModel.timerState.value as Boolean) viewModel.onPauseClick()
+            viewModel.saveState()
+            findNavController().navigate(CounterFragmentDirections.actionCounterFragmentToCounterProjectsFragment())
+        }
+        callback.isEnabled
+
         binding.multiAutoCompleteTextViewNote.setOnFocusChangeListener { v, hasFocus ->
-            if(!hasFocus){
+            if (!hasFocus) {
                 v.hideKeyboard()
                 v.clearFocus()
             }
         }
         binding.editTextCounterStep.setOnFocusChangeListener { v, hasFocus ->
-            if(!hasFocus){
+            if (!hasFocus) {
                 v.hideKeyboard()
                 v.clearFocus()
             }
@@ -55,13 +64,14 @@ class CounterFragment : Fragment() {
 
 
         viewModel.timerState.observe(viewLifecycleOwner, Observer {
-            if (it){
-                binding.chronometerTime.base = SystemClock.elapsedRealtime() + viewModel.time.value!!
+            if (it) {
+                binding.chronometerTime.base =
+                    SystemClock.elapsedRealtime() + viewModel.time.value!!
                 binding.chronometerTime.start()
                 binding.imageButtonPlay.visibility = View.INVISIBLE
                 binding.imageButtonPause.visibility = View.VISIBLE
             }
-            if(!it){
+            if (!it) {
                 binding.chronometerTime.stop()
                 binding.imageButtonPlay.visibility = View.VISIBLE
                 binding.imageButtonPause.visibility = View.INVISIBLE
@@ -78,4 +88,11 @@ class CounterFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onPause() {
+        if (viewModel.timerState.value as Boolean) viewModel.onPauseClick()
+        viewModel.saveState()
+        super.onPause()
+    }
+
 }

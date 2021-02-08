@@ -26,7 +26,7 @@ class QuestionDialogViewModel(val dataSource: CounterDAO, val counter: Counter) 
 
 
     fun onWillButtonCLick(){
-        myCounter.state = "Буду вязать"
+        myCounter.state = "Вяжется"
         viewModelScope.launch{
             dataSource.update(myCounter)
         }
