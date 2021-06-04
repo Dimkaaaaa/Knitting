@@ -32,5 +32,8 @@
         <argument
             android:name="counterID"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_counterFragment_to_counterProjectsFragment"
+            app:destination="@id/counterProjectsFragment" />
     </fragment>
 </navigation>
